@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Layanan Pengaduan</title>
   <style>
     body {
@@ -87,8 +87,11 @@
     <label for="nama">Nama Lengkap:</label>
     <input type="text" id="nama" name="nama" required />
 
-    <label for="kontak">Alamat Email:</label>
-    <input type="text" id="kontak" name="kontak" required />
+    <label for="wa">Nomor WhatsApp:</label>
+    <input type="text" id="wa" name="wa" required />
+
+    <label for="email">Alamat Email:</label>
+    <input type="email" id="email" name="email" required />
 
     <label for="pesan">Isi Pengaduan:</label>
     <textarea id="pesan" name="pesan" rows="5" required></textarea>
@@ -99,31 +102,37 @@
 
   <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
   <script>
-    (function() {
-      emailjs.init("v7FQliWty-kceC2Bk"); // Public Key kamu
-    })();
+    window.onload = function() {
+      emailjs.init("v7FQliWty-kceC2Bk");
+    }
 
     document.getElementById('pengaduanForm').addEventListener('submit', function(e) {
       e.preventDefault();
 
-      const button = this.querySelector('button');
-      button.disabled = true;
-      button.textContent = 'Mengirim...';
+      const nama = document.getElementById('nama').value;
+      const wa = document.getElementById('wa').value;
+      const email = document.getElementById('email').value;
+      const pesan = document.getElementById('pesan').value;
+      const tombol = this.querySelector('button');
+
+      tombol.disabled = true;
+      tombol.innerText = 'Mengirim...';
 
       emailjs.send("service_zv6tmvr", "template_oxw4drd", {
-        nama: document.getElementById('nama').value,
-        kontak: document.getElementById('kontak').value,
-        pesan: document.getElementById('pesan').value
+        nama: nama,
+        wa: wa,
+        email: email,
+        pesan: pesan
       })
       .then(function(response) {
         document.getElementById('pengaduanForm').reset();
         document.getElementById('successMsg').style.display = 'block';
-        button.disabled = false;
-        button.textContent = 'Kirim Pengaduan';
+        tombol.disabled = false;
+        tombol.innerText = 'Kirim Pengaduan';
       }, function(error) {
-        alert('Gagal mengirim pengaduan.');
-        button.disabled = false;
-        button.textContent = 'Kirim Pengaduan';
+        alert('Gagal mengirim pengaduan. Periksa koneksi atau konfigurasi EmailJS.');
+        tombol.disabled = false;
+        tombol.innerText = 'Kirim Pengaduan';
       });
     });
   </script>
