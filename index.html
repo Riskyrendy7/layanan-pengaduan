@@ -100,13 +100,14 @@
     <p class="success" id="successMsg" style="display:none;">🎉 Pengaduan berhasil dikirim!</p>
   </form>
 
-  <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
-  <script>
-    window.onload = function() {
-      emailjs.init("v7FQliWty-kceC2Bk");
-    }
+  <script type="module">
+    import emailjs from 'https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js';
 
-    document.getElementById('pengaduanForm').addEventListener('submit', function(e) {
+    window.onload = function () {
+      emailjs.init('v7FQliWty-kceC2Bk');
+    };
+
+    document.getElementById('pengaduanForm').addEventListener('submit', function (e) {
       e.preventDefault();
 
       const nama = document.getElementById('nama').value;
@@ -118,20 +119,19 @@
       tombol.disabled = true;
       tombol.innerText = 'Mengirim...';
 
-      emailjs.send("service_zv6tmvr", "template_oxw4drd", {
+      emailjs.send('service_zv6tmvr', 'template_oxw4drd', {
         nama: nama,
         wa: wa,
         email: email,
         pesan: pesan
-      })
-      .then(function(response) {
-        console.log("EmailJS success:", response);
+      }).then(function (response) {
+        console.log('EmailJS success:', response);
         document.getElementById('pengaduanForm').reset();
         document.getElementById('successMsg').style.display = 'block';
         tombol.disabled = false;
         tombol.innerText = 'Kirim Pengaduan';
-      }, function(error) {
-        console.error("EmailJS error:", error);
+      }, function (error) {
+        console.error('EmailJS error:', error);
         alert('Gagal mengirim pengaduan. Periksa koneksi atau konfigurasi EmailJS.');
         tombol.disabled = false;
         tombol.innerText = 'Kirim Pengaduan';
