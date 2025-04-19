@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Layanan Pengaduan</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #001f3f;
+      color: white;
+      padding: 2rem;
+    }
+
+    h1 {
+      color: #f6c700;
+      text-align: center;
+    }
+
+    form {
+      max-width: 500px;
+      margin: 2rem auto;
+      background-color: #ffffff11;
+      padding: 2rem;
+      border-radius: 12px;
+      backdrop-filter: blur(8px);
+      box-shadow: 0 0 10px rgba(246, 199, 0, 0.3);
+      animation: fadeIn 1s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    label {
+      display: block;
+      margin-top: 1rem;
+      text-align: left;
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 0.8rem;
+      margin-top: 0.3rem;
+      border-radius: 8px;
+      border: none;
+      font-size: 1rem;
+    }
+
+    button {
+      margin-top: 1.5rem;
+      padding: 1rem;
+      width: 100%;
+      background-color: #f6c700;
+      color: #001f3f;
+      font-weight: bold;
+      border: none;
+      border-radius: 10px;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: transform 0.2s ease, background-color 0.3s;
+    }
+
+    button:hover {
+      background-color: #ffd700;
+      transform: scale(1.02);
+    }
+
+    .success {
+      text-align: center;
+      margin-top: 1.5rem;
+      color: lightgreen;
+      font-weight: bold;
+      animation: popIn 0.5s ease-in-out;
+    }
+
+    @keyframes popIn {
+      0% { transform: scale(0.5); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+  <h1>Layanan Pengaduan</h1>
+  <form id="pengaduanForm">
+    <label for="nama">Nama Lengkap:</label>
+    <input type="text" id="nama" name="nama" required />
+
+    <label for="kontak">Kontak (WA/Email):</label>
+    <input type="text" id="kontak" name="kontak" required />
+
+    <label for="pesan">Isi Pengaduan:</label>
+    <textarea id="pesan" name="pesan" rows="5" required></textarea>
+
+    <button type="submit">Kirim Pengaduan</button>
+    <p class="success" id="successMsg" style="display:none;">🎉 Pengaduan berhasil dikirim!</p>
+  </form>
+
+  <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+  <script>
+    (function() {
+      emailjs.init("v7FQliWty-kceC2Bk"); // Public Key kamu
+    })();
+
+    document.getElementById('pengaduanForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const button = this.querySelector('button');
+      button.disabled = true;
+      button.textContent = 'Mengirim...';
+
+      emailjs.send("service_zv6tmvr", "template_oxw4drd", {
+        nama: document.getElementById('nama').value,
+        kontak: document.getElementById('kontak').value,
+        pesan: document.getElementById('pesan').value
+      })
+      .then(function(response) {
+        document.getElementById('pengaduanForm').reset();
+        document.getElementById('successMsg').style.display = 'block';
+        button.disabled = false;
+        button.textContent = 'Kirim Pengaduan';
+      }, function(error) {
+        alert('Gagal mengirim pengaduan.');
+        button.disabled = false;
+        button.textContent = 'Kirim Pengaduan';
+      });
+    });
+  </script>
+</body>
+</html>
