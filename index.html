@@ -100,9 +100,8 @@
     <p class="success" id="successMsg" style="display:none;">🎉 Pengaduan berhasil dikirim!</p>
   </form>
 
-  <script type="module">
-    import emailjs from 'https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js';
-
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+  <script>
     window.onload = function () {
       emailjs.init('v7FQliWty-kceC2Bk');
     };
