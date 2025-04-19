@@ -125,11 +125,13 @@
         pesan: pesan
       })
       .then(function(response) {
+        console.log("EmailJS success:", response);
         document.getElementById('pengaduanForm').reset();
         document.getElementById('successMsg').style.display = 'block';
         tombol.disabled = false;
         tombol.innerText = 'Kirim Pengaduan';
       }, function(error) {
+        console.error("EmailJS error:", error);
         alert('Gagal mengirim pengaduan. Periksa koneksi atau konfigurasi EmailJS.');
         tombol.disabled = false;
         tombol.innerText = 'Kirim Pengaduan';
