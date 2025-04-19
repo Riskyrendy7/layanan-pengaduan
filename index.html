@@ -17,6 +17,25 @@
       text-align: center;
     }
 
+    .back-button {
+      display: inline-block;
+      background-color: #ffffff11;
+      color: #f6c700;
+      padding: 0.6rem 1.2rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+      margin-bottom: 1rem;
+      box-shadow: 0 0 8px rgba(246, 199, 0, 0.3);
+    }
+
+    .back-button:hover {
+      background-color: #f6c700;
+      color: #001f3f;
+      transform: scale(1.05);
+    }
+
     form {
       max-width: 500px;
       margin: 2rem auto;
@@ -82,7 +101,9 @@
   </style>
 </head>
 <body>
+
   <h1>Layanan Pengaduan</h1>
+
   <form id="pengaduanForm">
     <label for="nama">Nama Lengkap:</label>
     <input type="text" id="nama" name="nama" required />
@@ -137,5 +158,10 @@
       });
     });
   </script>
+
+    <!-- Tombol Kembali -->
+  <div style="text-align: center;">
+    <a href="https://riskyrendy7.github.io/si-ceni" class="back-button">⬅️ Kembali ke Halaman Utama</a>
+  </div>
 </body>
 </html>
